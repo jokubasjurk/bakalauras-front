@@ -1,0 +1,34 @@
+.LoginPage {
+    display: flex;
+    height: 100vh;
+}
+
+.left-side {
+    flex: 1;
+    background: linear-gradient(to bottom right, #00c6ff, #0072ff);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    color: #fff;
+}
+
+.right-side {
+    flex: 1;
+    padding: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.login-container {
+    width: 100%;
+}
+
+button {
+    display: block;
+    margin-top: 1rem;
+}

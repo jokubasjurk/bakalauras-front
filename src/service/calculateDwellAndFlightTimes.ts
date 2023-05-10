@@ -10,7 +10,6 @@ export const calculateDwellTimesAndFlightTimes = (
     const flightTimes: FlightTime[] = [];
     const keyDownBuffer: KeyEventDataBuffer = {};
 
-    console.log(keyData);
     for (let i = 0; i < keyData.length - 1; i++) {
         const currentEvent = keyData[i];
         const nextEvent = keyData[i + 1];

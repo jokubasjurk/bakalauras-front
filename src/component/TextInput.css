@@ -1,0 +1,24 @@
+/* TextInput.css */
+.input-container {
+    position: relative;
+}
+
+.input-placeholder {
+    border: 1px solid #ccc;
+    padding: 2px;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.correct {
+    background-color: orange;
+}
+
+.error {
+    background-color: red;
+    color: white;
+}
+
+.remaining {
+    /* Add any styles for the remaining characters in the target phrase */
+}
