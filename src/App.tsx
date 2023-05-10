@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {KeyEventData} from "./model/KeyEventData";
 import {DwellTime} from "./model/DwellTime";
 import {FlightTime} from "./model/FlightTime";
@@ -22,37 +22,6 @@ const App: React.FC = () => {
         flightTimes: [] as FlightTime[],
     });
 
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            const currentTime = new Date().getTime();
-            setKeyData((prevData) => [
-                ...prevData,
-                {key: e.key, eventType: 'down', time: currentTime},
-            ]);
-        };
-
-        const handleKeyUp = (e: KeyboardEvent) => {
-            const currentTime = new Date().getTime();
-            setKeyData((prevData) => [
-                ...prevData,
-                {key: e.key, eventType: 'up', time: currentTime},
-            ]);
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-        window.addEventListener('keyup', handleKeyUp);
-
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-            window.removeEventListener('keyup', handleKeyUp);
-        };
-    }, []);
-
-    const handleEnterPress = (keyData: KeyEventData[]) => {
-        const dwellAndFlightTimes = calculateDwellTimesAndFlightTimes(keyData);
-        setResults(dwellAndFlightTimes);
-    };
-
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({...formData, [event.target.name]: event.target.value});
     };
@@ -65,16 +34,14 @@ const App: React.FC = () => {
         formData.dwellTimes = dwellAndFlightTimes.dwellTimes;
         formData.flightTimes = dwellAndFlightTimes.flightTimes;
         // const response = await axios.post('http://localhost:8080/api/login', formData);
-        setFormData({
-            username: '',
-            password: '',
-            phrase: '',
-            dwellTimes: [] as DwellTime[],
-            flightTimes: [] as FlightTime[],
-        });
         console.log(formData);
         // console.log(response.data);
     };
+
+    const handleKeyData = (newKeyData: KeyEventData) => {
+        setKeyData([...keyData, newKeyData]);
+    };
+
 
     return (
         <div className="App">
@@ -94,7 +61,7 @@ const App: React.FC = () => {
                         {/*<label htmlFor="phrase">A brown fox jumps over a fence</label>*/}
                         <label htmlFor="phrase">brown fox</label>
                         {/*<TextInput name="phrase" onEnterPress={handleEnterPress} onChange={handleChange}/>*/}
-                        <TextInput name="phrase" onEnterPress={() => null} onChange={handleChange}/>
+                        <TextInput handleKeyData={handleKeyData} name="phrase" onChange={handleChange}/>
                     </div>
                     <button type="submit">Login</button>
                 </form>

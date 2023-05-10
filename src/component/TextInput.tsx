@@ -1,26 +1,21 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {KeyEventData} from "../model/KeyEventData";
 
 interface TextInputProps {
-    onEnterPress: (keyData: KeyEventData[]) => void;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     name: string;
+    handleKeyData: any;
 }
 
-export const TextInput: React.FC<TextInputProps> = ({name, onEnterPress, onChange}) => {
-    const [keyData, setKeyData] = useState<KeyEventData[]>([]);
+export const TextInput: React.FC<TextInputProps> = ({name, onChange, handleKeyData}) => {
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
-            onEnterPress(keyData);
-        } else {
-            const eventData: KeyEventData = {
-                key: event.key,
-                eventType: 'down',
-                time: event.timeStamp,
-            };
-            setKeyData((prevKeyData) => [...prevKeyData, eventData]);
-        }
+        const eventData: KeyEventData = {
+            key: event.key,
+            eventType: 'down',
+            time: event.timeStamp,
+        };
+        handleKeyData(eventData);
     };
 
     const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -29,7 +24,7 @@ export const TextInput: React.FC<TextInputProps> = ({name, onEnterPress, onChang
             eventType: 'up',
             time: event.timeStamp,
         };
-        setKeyData((prevKeyData) => [...prevKeyData, eventData]);
+        handleKeyData(eventData);
     };
 
     return (
