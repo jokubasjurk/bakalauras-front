@@ -20,5 +20,6 @@
 }
 
 .remaining {
+    background-color: cornflowerblue;
     /* Add any styles for the remaining characters in the target phrase */
 }
