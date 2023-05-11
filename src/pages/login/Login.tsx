@@ -5,6 +5,7 @@ import {DwellTime} from "../../model/DwellTime";
 import {FlightTime} from "../../model/FlightTime";
 import {calculateDwellTimesAndFlightTimes} from "../../service/calculateDwellAndFlightTimes";
 import {TextInput} from "../../component/TextInput";
+import axios from "axios";
 
 const LoginPage: React.FC = () => {
     const [keyData, setKeyData] = useState<KeyEventData[]>([]);
@@ -15,7 +16,7 @@ const LoginPage: React.FC = () => {
         username: '',
         password: '',
         dwellTimes: [] as DwellTime[],
-        flightTimes: [] as FlightTime[][],
+        flightTimes: [] as FlightTime[],
     });
 
     const phrases = ['brown fox', 'lazy dog'];
@@ -42,15 +43,19 @@ const LoginPage: React.FC = () => {
     const handlePhraseSubmit = async () => {
         if (inputValue === targetInput) {
             const dwellAndFlightTimes = calculateDwellTimesAndFlightTimes(keyData);
+            console.log(dwellAndFlightTimes);
             setFormData((prevFormData) => ({
                 ...prevFormData,
-                dwellTimes: dwellAndFlightTimes.dwellTimes,
-                flightTimes: [...prevFormData.flightTimes, dwellAndFlightTimes.flightTimes],
+                // dwellTimes: dwellAndFlightTimes.dwellTimes,
+                flightTimes: dwellAndFlightTimes.flightTimes,
             }));
 
             setKeyData([]);
             setInputValue(''); // Clear the input field
-            setStep(2);
+            // setStep(2);
+            console.log(formData);
+            const response = await axios.post('http://localhost:8080/api/login', formData);
+            console.log(response);
         }
     };
 

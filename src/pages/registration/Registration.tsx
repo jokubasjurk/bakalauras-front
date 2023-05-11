@@ -8,7 +8,7 @@ import {calculateDwellTimesAndFlightTimes} from "../../service/calculateDwellAnd
 import {DwellTime} from "../../model/DwellTime";
 import {FlightTime} from "../../model/FlightTime";
 import { Link } from 'react-router-dom';
-
+import axios from "axios";
 
 interface RegistrationProps {
     // Add any required props for your use case
@@ -47,7 +47,7 @@ const Registration: React.FC<RegistrationProps> = () => {
             setKeyData([]);
 
             if (counter + 1 >= 10) {
-                // const response = await axios.post('http://localhost:8080/api/login', formData);
+                const response = await axios.post('http://localhost:8080/api/register', formData);
                 console.log(formData);
             }
 

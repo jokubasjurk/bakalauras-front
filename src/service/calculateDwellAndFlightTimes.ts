@@ -9,10 +9,16 @@ export const calculateDwellTimesAndFlightTimes = (
     const dwellTimes: DwellTime[] = [];
     const flightTimes: FlightTime[] = [];
     const keyDownBuffer: KeyEventDataBuffer = {};
+    const alphanumericRegex = /^[a-z0-9\s]$/i;
 
     for (let i = 0; i < keyData.length - 1; i++) {
         const currentEvent = keyData[i];
         const nextEvent = keyData[i + 1];
+
+        // Ignore non-alphanumeric keys
+        if (!alphanumericRegex.test(currentEvent.key) || !alphanumericRegex.test(nextEvent.key)) {
+            continue;
+        }
 
         // DWELL TIMES
         if (currentEvent.eventType === 'down') {
