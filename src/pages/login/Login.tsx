@@ -22,7 +22,7 @@ const LoginPage: React.FC = () => {
     const navigate = useNavigate();
 
     const phrases = ['the quick brown fox jumps over the lazy dog', 'lazy dog'];
-    const words = ['apple', 'orange'];
+    const words = ['encyclopedia labyrinth zephyr mesmerizing synchronize', 'orange'];
     const targetInput = inputType === 'phrase' ? phrases[0] : words[0];
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,15 +86,15 @@ const LoginPage: React.FC = () => {
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
                                 <label htmlFor="username">Username:</label>
-                                <input onChange={handleChange} type="text" id="username"
+                                <input className="form-control" onChange={handleChange} type="text" id="username"
                                        name="username" required/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="password">Password:</label>
-                                <input onChange={handleChange} type="password" id="password"
+                                <input className="form-control" onChange={handleChange} type="password" id="password"
                                        name="password" required/>
                             </div>
-                            <button type="submit">Next</button>
+                            <button className="btn btn-primary" type="submit">Next</button>
                         </form>
                     </div>
                 )}
@@ -102,23 +102,31 @@ const LoginPage: React.FC = () => {
                 {step === 1 && (
                     <div>
                         <h1>Type the given {inputType}:</h1>
-                        <div>
-                            <label>
-                                <input
-                                    type="radio"
-                                    value="phrase"
-                                    checked={inputType === 'phrase'}
-                                    onChange={handleRadioChange}
-                                />
+                        <div className="form-check form-check-inline">
+                            <input
+                                className="form-check-input"
+                                type="radio"
+                                name="inputType"
+                                id="phrase"
+                                value="phrase"
+                                checked={inputType === "phrase"}
+                                onChange={handleRadioChange}
+                            />
+                            <label className="form-check-label" htmlFor="phrase">
                                 Phrase
                             </label>
-                            <label>
-                                <input
-                                    type="radio"
-                                    value="word"
-                                    checked={inputType === 'word'}
-                                    onChange={handleRadioChange}
-                                />
+                        </div>
+                        <div className="form-check form-check-inline">
+                            <input
+                                className="form-check-input"
+                                type="radio"
+                                name="inputType"
+                                id="word"
+                                value="word"
+                                checked={inputType === "word"}
+                                onChange={handleRadioChange}
+                            />
+                            <label className="form-check-label" htmlFor="word">
                                 Word
                             </label>
                         </div>
@@ -130,9 +138,13 @@ const LoginPage: React.FC = () => {
                             setInputValue={setInputValue}
                             onSubmit={handlePhraseSubmit}
                             targetPhrase={targetInput}
+                            className={"form-control"}
                         />
-                        <button onClick={handlePhraseSubmit}>Submit {inputType}</button>
+                        <button onClick={handlePhraseSubmit} className="btn btn-primary mt-2">
+                            Submit {inputType}
+                        </button>
                     </div>
+
                 )}
 
                 {step === 2 && (

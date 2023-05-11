@@ -92,16 +92,15 @@ const Registration: React.FC<RegistrationProps> = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="username">Username:</label>
-                        <input onChange={handleChange} type="text" id="username" name="username"/>
+                        <input onChange={handleChange} type="text" id="username" name="username" className="form-control" required/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password:</label>
-                        <input onChange={handleChange} type="password" id="password"
-                               name="password"/>
+                        <input onChange={handleChange} type="password" id="password" name="password" className="form-control" required/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="email">Email:</label>
-                        <input onChange={handleChange} type="email" id="email" name="email"/>
+                        <input onChange={handleChange} type="email" id="email" name="email" className="form-control" required/>
                     </div>
                     <div className="form-group">
                         <label>Type the given phrase:</label>
@@ -113,15 +112,18 @@ const Registration: React.FC<RegistrationProps> = () => {
                                 setInputValue={setInputValue}
                                 onSubmit={handlePhraseSubmit}
                                 targetPhrase="the quick brown fox jumps over the lazy dog"
+                                className="form-control"
                             />
                             <div className={classNames("counter-bubble", {completed: counter >= 10})}>
                                 {counter}/10
                             </div>
                         </div>
                     </div>
-                    <button type="submit" disabled={!isSubmitEnabled}
-                            style={{backgroundColor: isSubmitEnabled ? 'green' : 'gray'}}>
-                        Register
+                    <button type="submit"
+                            disabled={!isSubmitEnabled}
+                            className={classNames(isSubmitEnabled ? "btn btn-primary" : "btn btn-secondary", "register-button")}
+                    >
+                        {isSubmitEnabled ? "Register" : "Complete your typing task to proceed"}
                     </button>
                     <p className="login-redirect">
                         If you already have an account, <Link to="/login">login here</Link>.

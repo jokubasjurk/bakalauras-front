@@ -9,9 +9,10 @@ interface TextInputProps {
     setInputValue: (value: string) => void;
     onSubmit: () => void;
     targetPhrase: string;
+    className: string;
 }
 
-export const TextInput: React.FC<TextInputProps> = ({handleKeyData, name, inputValue, setInputValue, onSubmit, targetPhrase}) => {
+export const TextInput: React.FC<TextInputProps> = ({handleKeyData, name, inputValue, setInputValue, onSubmit, targetPhrase, className}) => {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
@@ -64,6 +65,7 @@ export const TextInput: React.FC<TextInputProps> = ({handleKeyData, name, inputV
 
     return (
         <div className="input-container">
+            <div className="input-placeholder">{renderPhraseWithHighlights()}</div>
             <input
                 type="text"
                 name={name}
@@ -72,9 +74,10 @@ export const TextInput: React.FC<TextInputProps> = ({handleKeyData, name, inputV
                 onKeyDown={handleKeyDown}
                 onKeyUp={handleKeyUp}
                 autoComplete="off"
-                style={{ opacity: 0, position: 'absolute' }}
+                className={className}
+                onPaste={e => e.preventDefault()}
+                // style={{ opacity: 0, position: 'absolute' }}
             />
-            <div className="input-placeholder">{renderPhraseWithHighlights()}</div>
         </div>
     );
 };

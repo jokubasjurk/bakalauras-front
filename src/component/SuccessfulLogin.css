@@ -4,11 +4,11 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #d4edda;
+    background: linear-gradient(to bottom right, #00c6ff, #0072ff);
 }
 
 .successful-login h1 {
-    color: #155724;
+    color: #ffffff;
     font-size: 3rem;
     margin-bottom: 2rem;
 }
