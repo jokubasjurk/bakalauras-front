@@ -7,7 +7,7 @@ import {KeyEventData} from "../../model/KeyEventData";
 import {calculateDwellTimesAndFlightTimes} from "../../service/calculateDwellAndFlightTimes";
 import {DwellTime} from "../../model/DwellTime";
 import {FlightTime} from "../../model/FlightTime";
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import axios from "axios";
 
 interface RegistrationProps {
@@ -25,6 +25,7 @@ const Registration: React.FC<RegistrationProps> = () => {
         dwellTimes: [] as DwellTime[],
         flightTimes: [] as FlightTime[][],
     });
+    const navigate = useNavigate();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({...formData, [event.target.name]: event.target.value});
@@ -35,7 +36,7 @@ const Registration: React.FC<RegistrationProps> = () => {
     };
 
     const handlePhraseSubmit = async () => {
-        if (inputValue === 'brown fox') {
+        if (inputValue === 'the quick brown fox jumps over the lazy dog') {
             const dwellAndFlightTimes = calculateDwellTimesAndFlightTimes(keyData);
             setFormData((prevFormData) => ({
                 ...prevFormData,
@@ -47,8 +48,12 @@ const Registration: React.FC<RegistrationProps> = () => {
             setKeyData([]);
 
             if (counter + 1 >= 10) {
-                const response = await axios.post('http://localhost:8080/api/register', formData);
-                console.log(formData);
+                try {
+                    await axios.post('http://localhost:8080/api/register', formData);
+                    navigate('/');
+                } catch (error) {
+                    console.error('Error during authentication:', error);
+                }
             }
 
             setInputValue(''); // Clear the input field
@@ -69,22 +74,16 @@ const Registration: React.FC<RegistrationProps> = () => {
             <div className="left-side">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere eu
-                    libero ac vestibulum.
-                    Integer id tempor purus.
                 </p>
                 <p>
                     Quisque at ante quis justo malesuada volutpat. Vivamus vehicula sem sed odio
-                    lacinia, ut cursus
-                    ligula convallis.
                 </p>
                 <p>
-                    Proin fringilla arcu eget sapien tempus, ac viverra nisl bibendum. Etiam
-                    porttitor, est vel
+                    Proin fringilla arcu eget sapien tempus, ac viverra nisl bibendum. Etiam porttitor, est vel
                     interdum volutpat, nibh sem sodales ligula, vel consequat odio urna eget justo.
                 </p>
                 <p>
-                    Cras in sem mauris. Sed et justo purus. Proin ultricies, ante vitae volutpat
-                    interdum, urna
+                    Cras in sem mauris. Sed et justo purus. Proin ultricies, ante vitae volutpat interdum, urna
                     lorem tincidunt dui, a venenatis ligula dolor id purus.
                 </p>
             </div>
@@ -113,9 +112,9 @@ const Registration: React.FC<RegistrationProps> = () => {
                                 inputValue={inputValue}
                                 setInputValue={setInputValue}
                                 onSubmit={handlePhraseSubmit}
-                                targetPhrase="brown fox"
+                                targetPhrase="the quick brown fox jumps over the lazy dog"
                             />
-                            <div className={classNames("counter-bubble", { completed: counter >= 10 })}>
+                            <div className={classNames("counter-bubble", {completed: counter >= 10})}>
                                 {counter}/10
                             </div>
                         </div>

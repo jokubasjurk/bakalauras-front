@@ -1,0 +1,30 @@
+.successful-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #d4edda;
+}
+
+.successful-login h1 {
+    color: #155724;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.successful-login button {
+    padding: 1rem;
+    margin: 1rem;
+    border: 1px solid #155724;
+    background-color: #ffffff;
+    color: #155724;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.successful-login button:hover {
+    background-color: #155724;
+    color: #ffffff;
+}

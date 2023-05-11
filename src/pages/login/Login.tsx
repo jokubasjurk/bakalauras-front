@@ -6,6 +6,7 @@ import {FlightTime} from "../../model/FlightTime";
 import {calculateDwellTimesAndFlightTimes} from "../../service/calculateDwellAndFlightTimes";
 import {TextInput} from "../../component/TextInput";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const LoginPage: React.FC = () => {
     const [keyData, setKeyData] = useState<KeyEventData[]>([]);
@@ -18,8 +19,9 @@ const LoginPage: React.FC = () => {
         dwellTimes: [] as DwellTime[],
         flightTimes: [] as FlightTime[],
     });
+    const navigate = useNavigate();
 
-    const phrases = ['brown fox', 'lazy dog'];
+    const phrases = ['the quick brown fox jumps over the lazy dog', 'lazy dog'];
     const words = ['apple', 'orange'];
     const targetInput = inputType === 'phrase' ? phrases[0] : words[0];
 
@@ -54,8 +56,16 @@ const LoginPage: React.FC = () => {
             setInputValue(''); // Clear the input field
             // setStep(2);
             console.log(formData);
-            const response = await axios.post('http://localhost:8080/api/login', formData);
-            console.log(response);
+            try {
+                const response = await axios.post('http://localhost:8080/api/login', formData);
+                if (response.data.success) {
+                    navigate('/successful-login');
+                } else {
+                    navigate('/unsuccessful-login');
+                }
+            } catch (error) {
+                console.error('Error during authentication:', error);
+            }
         }
     };
 
