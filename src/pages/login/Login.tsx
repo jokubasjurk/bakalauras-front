@@ -1,5 +1,5 @@
 import './Login.css';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {KeyEventData} from "../../model/KeyEventData";
 import {DwellTime} from "../../model/DwellTime";
 import {FlightTime} from "../../model/FlightTime";
@@ -42,6 +42,27 @@ const LoginPage: React.FC = () => {
         setKeyData([...keyData, newKeyData]);
     };
 
+    const [submit, setSubmit] = useState(false);
+
+    useEffect(() => {
+        const submitData = async () => {
+            try {
+                const response = await axios.post('http://localhost:8080/api/login', formData);
+                if (response.data.success) {
+                    navigate('/successful-login');
+                } else {
+                    navigate('/unsuccessful-login');
+                }
+            } catch (error) {
+                console.error('Error during authentication:', error);
+            }
+        };
+
+        if (submit) {
+            submitData().then(_ => setSubmit(false));
+        }
+    }, [formData, navigate, submit]);
+
     const handlePhraseSubmit = async () => {
         if (inputValue === targetInput) {
             const dwellAndFlightTimes = calculateDwellTimesAndFlightTimes(keyData);
@@ -55,17 +76,7 @@ const LoginPage: React.FC = () => {
             setKeyData([]);
             setInputValue(''); // Clear the input field
             // setStep(2);
-            console.log(formData);
-            try {
-                const response = await axios.post('http://localhost:8080/api/login', formData);
-                if (response.data.success) {
-                    navigate('/successful-login');
-                } else {
-                    navigate('/unsuccessful-login');
-                }
-            } catch (error) {
-                console.error('Error during authentication:', error);
-            }
+            setSubmit(true);
         }
     };
 
