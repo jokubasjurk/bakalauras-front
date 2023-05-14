@@ -24,7 +24,7 @@ jobs:
     - name: Build the React app
       run: npm run build
 
-    - name: Deploy to DigitalOcean Droplet
+    - name: Deploy to DigitalOcean Droplet and run serve
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         DROPLET_IP: ${{ secrets.DROPLET_IP }}
@@ -32,7 +32,7 @@ jobs:
       run: |
         echo "$SSH_PRIVATE_KEY" > private_key
         chmod 600 private_key
-        tar czf build.tar.gz build/
         scp -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null build.tar.gz $DROPLET_USER@$DROPLET_IP:/tmp/build.tar.gz
-        ssh -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DROPLET_USER@$DROPLET_IP "tar xzf /tmp/build.tar.gz -C /var/www/html/ && rm /tmp/build.tar.gz"
+        ssh -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DROPLET_USER@$DROPLET_IP "sudo mkdir -p /var/www/html && sudo tar -xzf /tmp/build.tar.gz -C /var/www/html && sudo rm /tmp/build.tar.gz && cd /var/www/html && sudo npm install -g serve && serve -s build"
         rm -f private_key
+
