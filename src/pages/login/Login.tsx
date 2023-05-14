@@ -6,7 +6,7 @@ import {FlightTime} from "../../model/FlightTime";
 import {calculateDwellTimesAndFlightTimes} from "../../service/calculateDwellAndFlightTimes";
 import {TextInput} from "../../component/TextInput";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const LoginPage: React.FC = () => {
     const [keyData, setKeyData] = useState<KeyEventData[]>([]);
@@ -47,7 +47,7 @@ const LoginPage: React.FC = () => {
     useEffect(() => {
         const submitData = async () => {
             try {
-                const response = await axios.post('http://localhost:8080/api/login', formData);
+                const response = await axios.post('http://146.190.25.169/api/login', formData);
                 if (response.data.success) {
                     navigate('/successful-login');
                 } else {
@@ -69,6 +69,8 @@ const LoginPage: React.FC = () => {
             console.log(dwellAndFlightTimes);
             setFormData((prevFormData) => ({
                 ...prevFormData,
+                inputType,
+                targetValue: targetInput,
                 // dwellTimes: dwellAndFlightTimes.dwellTimes,
                 flightTimes: dwellAndFlightTimes.flightTimes,
             }));
@@ -106,6 +108,9 @@ const LoginPage: React.FC = () => {
                                        name="password" required/>
                             </div>
                             <button className="btn btn-primary" type="submit">Next</button>
+                            <p className="register-redirect">
+                                Don't have an account yet? <Link to="/">register here</Link>.
+                            </p>
                         </form>
                     </div>
                 )}

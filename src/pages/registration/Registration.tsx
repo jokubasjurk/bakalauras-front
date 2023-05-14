@@ -18,6 +18,7 @@ const Registration: React.FC<RegistrationProps> = () => {
     const [keyData, setKeyData] = useState<KeyEventData[]>([]);
     const [counter, setCounter] = useState(0);
     const [inputValue, setInputValue] = useState('');
+    const [inputType, setInputType] = useState('phrase');
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -26,6 +27,10 @@ const Registration: React.FC<RegistrationProps> = () => {
         flightTimes: [] as FlightTime[][],
     });
     const navigate = useNavigate();
+
+    const phrases = ['the quick brown fox jumps over the lazy dog', 'lazy dog'];
+    const words = ['encyclopedia labyrinth zephyr mesmerizing synchronize', 'orange'];
+    const targetInput = inputType === 'phrase' ? phrases[0] : words[0];
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({...formData, [event.target.name]: event.target.value});
@@ -36,10 +41,12 @@ const Registration: React.FC<RegistrationProps> = () => {
     };
 
     const handlePhraseSubmit = async () => {
-        if (inputValue === 'the quick brown fox jumps over the lazy dog') {
+        if (inputValue === targetInput) {
             const dwellAndFlightTimes = calculateDwellTimesAndFlightTimes(keyData);
             setFormData((prevFormData) => ({
                 ...prevFormData,
+                inputType,
+                targetValue: targetInput,
                 dwellTimes: dwellAndFlightTimes.dwellTimes,
                 flightTimes: [...prevFormData.flightTimes, dwellAndFlightTimes.flightTimes],
             }));
@@ -49,7 +56,7 @@ const Registration: React.FC<RegistrationProps> = () => {
 
             if (counter + 1 >= 10) {
                 try {
-                    await axios.post('http://localhost:8080/api/register', formData);
+                    await axios.post('http://146.190.25.169/api/register', formData);
                     navigate('/');
                 } catch (error) {
                     console.error('Error during authentication:', error);
@@ -67,25 +74,21 @@ const Registration: React.FC<RegistrationProps> = () => {
         // Perform your registration logic here
     };
 
+    const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputType(event.target.value);
+    };
+
     const isSubmitEnabled = counter >= 10;
 
     return (
         <div className="registration-container">
             <div className="left-side">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere eu
-                </p>
-                <p>
-                    Quisque at ante quis justo malesuada volutpat. Vivamus vehicula sem sed odio
-                </p>
-                <p>
-                    Proin fringilla arcu eget sapien tempus, ac viverra nisl bibendum. Etiam porttitor, est vel
-                    interdum volutpat, nibh sem sodales ligula, vel consequat odio urna eget justo.
-                </p>
-                <p>
-                    Cras in sem mauris. Sed et justo purus. Proin ultricies, ante vitae volutpat interdum, urna
-                    lorem tincidunt dui, a venenatis ligula dolor id purus.
-                </p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat.</p>
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                    fugiat nulla pariatur.</p>
             </div>
             <div className="right-side">
                 <h1>Registration</h1>
@@ -104,6 +107,34 @@ const Registration: React.FC<RegistrationProps> = () => {
                     </div>
                     <div className="form-group">
                         <label>Type the given phrase:</label>
+                        <div className="form-check form-check-inline">
+                            <input
+                                className="form-check-input"
+                                type="radio"
+                                name="inputType"
+                                id="phrase"
+                                value="phrase"
+                                checked={inputType === "phrase"}
+                                onChange={handleRadioChange}
+                            />
+                            <label className="form-check-label" htmlFor="phrase">
+                                Phrase
+                            </label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                            <input
+                                className="form-check-input"
+                                type="radio"
+                                name="inputType"
+                                id="word"
+                                value="word"
+                                checked={inputType === "word"}
+                                onChange={handleRadioChange}
+                            />
+                            <label className="form-check-label" htmlFor="word">
+                                Words
+                            </label>
+                        </div>
                         <div className="text-input-wrapper">
                             <TextInput
                                 handleKeyData={handleKeyData}
@@ -111,7 +142,7 @@ const Registration: React.FC<RegistrationProps> = () => {
                                 inputValue={inputValue}
                                 setInputValue={setInputValue}
                                 onSubmit={handlePhraseSubmit}
-                                targetPhrase="the quick brown fox jumps over the lazy dog"
+                                targetPhrase={targetInput}
                                 className="form-control"
                             />
                             <div className={classNames("counter-bubble", {completed: counter >= 10})}>
@@ -123,7 +154,7 @@ const Registration: React.FC<RegistrationProps> = () => {
                             disabled={!isSubmitEnabled}
                             className={classNames(isSubmitEnabled ? "btn btn-primary" : "btn btn-secondary", "register-button")}
                     >
-                        {isSubmitEnabled ? "Register" : "Complete your typing task to proceed"}
+                        {isSubmitEnabled ? "Register" : "Click \"Enter\" to submit the phrase"}
                     </button>
                     <p className="login-redirect">
                         If you already have an account, <Link to="/login">login here</Link>.

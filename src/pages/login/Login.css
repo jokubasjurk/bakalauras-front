@@ -38,3 +38,17 @@ button {
     margin-top: 1rem;
     width: 50%;
 }
+
+.register-redirect {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.register-redirect a {
+    color: #4caf50;
+    text-decoration: none;
+}
+
+.register-redirect a:hover {
+    text-decoration: underline;
+}

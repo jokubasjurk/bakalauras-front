@@ -14,7 +14,7 @@ const UnsuccessfulLogin = () => {
     };
 
     return (
-        <div>
+        <div className="unsuccessful-login">
             <h1>Unsuccessful Login</h1>
             <button onClick={goToRegistration}>Go to Registration</button>
             <button onClick={goToLogin}>Go to Login</button>
