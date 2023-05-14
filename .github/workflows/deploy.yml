@@ -38,6 +38,7 @@ jobs:
         chmod 600 private_key
         scp -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null build.tar.gz $DROPLET_USER@$DROPLET_IP:/tmp/build.tar.gz
         ssh -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DROPLET_USER@$DROPLET_IP "sudo mkdir -p /var/www/html && sudo tar -xzf /tmp/build.tar.gz -C /var/www/html && sudo rm /tmp/build.tar.gz"
-        ssh -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DROPLET_USER@$DROPLET_IP "serve -s /var/www/html -l 80"
+        ssh -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DROPLET_USER@$DROPLET_IP "pm2 stop myapp || true && pm2 start serve --name myapp -- -s /var/www/html -l 3000"
         rm -f private_key
+
 
