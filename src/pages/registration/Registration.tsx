@@ -56,7 +56,7 @@ const Registration: React.FC<RegistrationProps> = () => {
 
             if (counter + 1 >= 10) {
                 try {
-                    await axios.post('http://146.190.25.169/api/register', formData);
+                    await axios.post('http://146.190.25.169:8080/api/register', formData);
                     navigate('/');
                 } catch (error) {
                     console.error('Error during authentication:', error);

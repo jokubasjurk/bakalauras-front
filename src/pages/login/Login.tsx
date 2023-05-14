@@ -47,7 +47,7 @@ const LoginPage: React.FC = () => {
     useEffect(() => {
         const submitData = async () => {
             try {
-                const response = await axios.post('http://146.190.25.169/api/login', formData);
+                const response = await axios.post('http://146.190.25.169:8080/api/login', formData);
                 if (response.data.success) {
                     navigate('/successful-login');
                 } else {
