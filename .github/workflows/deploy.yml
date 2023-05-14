@@ -37,5 +37,5 @@ jobs:
         echo "$SSH_PRIVATE_KEY" > private_key
         chmod 600 private_key
         scp -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null build.tar.gz $DROPLET_USER@$DROPLET_IP:/tmp/build.tar.gz
-        ssh -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DROPLET_USER@$DROPLET_IP "sudo mkdir -p /var/www/html && sudo tar -xzf /tmp/build.tar.gz -C /var/www/html && sudo rm /tmp/build.tar.gz && cd /var/www/html && sudo npm install -g serve && serve -s build > serve.log 2>&1 & disown"
+        ssh -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DROPLET_USER@$DROPLET_IP "sudo mkdir -p /var/www/html && sudo tar -xzf /tmp/build.tar.gz -C /var/www/html && sudo rm /tmp/build.tar.gz && cd /var/www/html && serve -s build > serve.log 2>&1 & disown"
         rm -f private_key
