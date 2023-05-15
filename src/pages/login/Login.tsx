@@ -88,24 +88,29 @@ const LoginPage: React.FC = () => {
     return (
         <div className="LoginPage">
             <div className="left-side">
+                <div className="title">
+                    <h1>Keystroke Dynamics Authentication</h1>
+                </div>
                 <div className="content">
                     <div className="block">
-                        <p>Keystroke dynamics authentication is a unique security feature that adds an extra layer of protection to your account.</p>
-                        <img src={lockEye} alt="description-of-image"/>
+                        <p>Using keystroke dynamics as an authentication method offers a unique and personal approach to securing your account.</p>
+                        <img src={lockEye} alt="lockEye"/>
                     </div>
                     <div className="block">
                         <p>
-                            By typing the given phrase 5 times, our system can accurately capture your keystroke signature.
-                            This signature will then be used as a second authentication factor, ensuring only you can access your account.
+                            During the login phase, you are required to type the same phrase that you entered during the registration.
+                            Our system will compare your current typing rhythm with the keystroke signature we captured during your registration.
                         </p>
-                        <img src={typePassword} alt="description-of-image"/>
+                        <img src={typePassword} alt="typePassword"/>
                     </div>
                     <div className="block">
                         <p>
-                            This process not only enhances the security of your account but also helps prevent unauthorized access.
-                            Remember, your typing style is as unique as your fingerprint!
+                            This consistent approach not only elevates the security measures for your account but also aids in deterring unauthorized access.
                         </p>
-                        <img src={fingerprint} alt="description-of-image"/>
+                        <p>
+                            It's essential to remember that your unique typing rhythm is as distinctive as your fingerprint, making it a reliable security measure!
+                        </p>
+                        <img src={fingerprint} alt="fingerprint"/>
                     </div>
                 </div>
             </div>

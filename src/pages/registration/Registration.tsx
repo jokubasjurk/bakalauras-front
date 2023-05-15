@@ -9,9 +9,8 @@ import {DwellTime} from "../../model/DwellTime";
 import {FlightTime} from "../../model/FlightTime";
 import {Link, useNavigate} from 'react-router-dom';
 import axios from "axios";
-import lockEye from "../../assets/lock-eye.png"
-import fingerprint from "../../assets/fingerprint.png"
-import typePassword from "../../assets/type-password.png"
+import documentProtection from "../../assets/document-protection.png"
+import shieldEye from "../../assets/shield-eye.png"
 
 interface RegistrationProps {
     // Add any required props for your use case
@@ -87,17 +86,20 @@ const Registration: React.FC<RegistrationProps> = () => {
     return (
         <div className="registration-container">
             <div className="left-side">
+                <div className="title">
+                    <h1>Keystroke Dynamics Authentication</h1>
+                </div>
                 <div className="content">
                     <div className="block">
                         <p>Keystroke dynamics authentication is a unique security feature that adds an extra layer of protection to your account.</p>
-                        <img src={lockEye} alt="lockEye"/>
+                        <img src={documentProtection} alt="documentProtection"/>
                     </div>
                     <div className="block">
                         <p>
                             By typing the given phrase 10 times, our system can accurately capture your keystroke signature.
                             This signature will then be used as a second authentication factor, ensuring only you can access your account.
                         </p>
-                        <img src={typePassword} alt="lockEye"/>
+                        <img src={shieldEye} alt="shieldEye"/>
                     </div>
                     <div className="block">
                         <p>
@@ -106,7 +108,6 @@ const Registration: React.FC<RegistrationProps> = () => {
                         <p>
                             Remember, your typing style is as unique as your fingerprint!
                         </p>
-                        <img src={fingerprint} alt="lockEye"/>
                     </div>
                 </div>
             </div>
