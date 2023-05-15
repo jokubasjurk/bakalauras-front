@@ -3,17 +3,17 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from "./pages/login/Login";
 import Registration from "./pages/registration/Registration";
-import SuccessfulLogin from "./component/SuccessfulLogin";
-import UnsuccessfulLogin from "./component/UnsuccessfulLogin";
+import SuccessPage from "./component/SuccessPage";
+import FailurePage from "./component/FailurePage";
 
 const App: React.FC = () => {
     return (
         <Router>
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/" element={<Registration />} />
-                <Route path="/successful-login" element={<SuccessfulLogin />} />
-                <Route path="/unsuccessful-login" element={<UnsuccessfulLogin />} />
+                <Route path="/success" element={<SuccessPage />} />
+                <Route path="/failure" element={<FailurePage />} />
+                <Route path="/*" element={<Registration />} />
             </Routes>
         </Router>
     );

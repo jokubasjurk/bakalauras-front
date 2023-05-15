@@ -57,9 +57,10 @@ const Registration: React.FC<RegistrationProps> = () => {
             if (counter + 1 >= 10) {
                 try {
                     await axios.post('http://146.190.25.169:8080/api/register', formData);
-                    navigate('/');
+                    navigate('/success', { state: { successType: 'registration' } });
                 } catch (error) {
                     console.error('Error during authentication:', error);
+                    navigate('/failure', { state: { successType: 'registration' } });
                 }
             }
 
@@ -144,6 +145,7 @@ const Registration: React.FC<RegistrationProps> = () => {
                                 onSubmit={handlePhraseSubmit}
                                 targetPhrase={targetInput}
                                 className="form-control"
+                                disabled={counter >= 10}
                             />
                             <div className={classNames("counter-bubble", {completed: counter >= 10})}>
                                 {counter}/10

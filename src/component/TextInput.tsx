@@ -10,9 +10,10 @@ interface TextInputProps {
     onSubmit: () => void;
     targetPhrase: string;
     className: string;
+    disabled: boolean;
 }
 
-export const TextInput: React.FC<TextInputProps> = ({handleKeyData, name, inputValue, setInputValue, onSubmit, targetPhrase, className}) => {
+export const TextInput: React.FC<TextInputProps> = ({handleKeyData, name, inputValue, setInputValue, onSubmit, targetPhrase, className, disabled}) => {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
@@ -76,6 +77,7 @@ export const TextInput: React.FC<TextInputProps> = ({handleKeyData, name, inputV
                 autoComplete="off"
                 className={className}
                 onPaste={e => e.preventDefault()}
+                disabled={disabled}
                 // style={{ opacity: 0, position: 'absolute' }}
             />
         </div>

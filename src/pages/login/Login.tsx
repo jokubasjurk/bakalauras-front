@@ -49,9 +49,9 @@ const LoginPage: React.FC = () => {
             try {
                 const response = await axios.post('http://146.190.25.169:8080/api/login', formData);
                 if (response.data.success) {
-                    navigate('/successful-login');
+                    navigate('/success', { state: { successType: 'login' } });
                 } else {
-                    navigate('/unsuccessful-login');
+                    navigate('/failure', { state: { successType: 'login' } });
                 }
             } catch (error) {
                 console.error('Error during authentication:', error);
@@ -155,6 +155,7 @@ const LoginPage: React.FC = () => {
                             onSubmit={handlePhraseSubmit}
                             targetPhrase={targetInput}
                             className={"form-control"}
+                            disabled={false}
                         />
                         <button onClick={handlePhraseSubmit} className="btn btn-primary mt-2">
                             Submit {inputType}
