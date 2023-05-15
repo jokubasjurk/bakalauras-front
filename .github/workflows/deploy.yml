@@ -36,6 +36,6 @@ jobs:
         echo "$SSH_PRIVATE_KEY" > private_key
         chmod 600 private_key
         scp -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null build.tar.gz $DROPLET_USER@$DROPLET_IP:/tmp/build.tar.gz
-        ssh -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DROPLET_USER@$DROPLET_IP "sudo rm -rf /var/www/html/* && sudo mkdir -p /var/www/html && sudo tar -xzf /tmp/build.tar.gz -C /var/www/html && sudo rm /tmp/build.tar.gz"
+        ssh -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DROPLET_USER@$DROPLET_IP "sudo mkdir -p /var/www/html && sudo find /var/www/html -type f -not -name 'ecosystem.config.js' -delete && sudo tar -xzf /tmp/build.tar.gz -C /var/www/html && sudo rm /tmp/build.tar.gz"
         ssh -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DROPLET_USER@$DROPLET_IP "pm2 stop my-app || true && if [ -d /var/www/html && ! -z "$(ls -A /var/www/html)" ]; then cd /var/www/html && pm2 start; fi"
         rm -f private_key
