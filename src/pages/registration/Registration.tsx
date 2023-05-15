@@ -9,6 +9,9 @@ import {DwellTime} from "../../model/DwellTime";
 import {FlightTime} from "../../model/FlightTime";
 import {Link, useNavigate} from 'react-router-dom';
 import axios from "axios";
+import lockEye from "../../assets/lock-eye.png"
+import fingerprint from "../../assets/fingerprint.png"
+import typePassword from "../../assets/type-password.png"
 
 interface RegistrationProps {
     // Add any required props for your use case
@@ -84,12 +87,28 @@ const Registration: React.FC<RegistrationProps> = () => {
     return (
         <div className="registration-container">
             <div className="left-side">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat.</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <div className="content">
+                    <div className="block">
+                        <p>Keystroke dynamics authentication is a unique security feature that adds an extra layer of protection to your account.</p>
+                        <img src={lockEye} alt="lockEye"/>
+                    </div>
+                    <div className="block">
+                        <p>
+                            By typing the given phrase 10 times, our system can accurately capture your keystroke signature.
+                            This signature will then be used as a second authentication factor, ensuring only you can access your account.
+                        </p>
+                        <img src={typePassword} alt="lockEye"/>
+                    </div>
+                    <div className="block">
+                        <p>
+                            This process not only enhances the security of your account but also helps prevent unauthorized access.
+                        </p>
+                        <p>
+                            Remember, your typing style is as unique as your fingerprint!
+                        </p>
+                        <img src={fingerprint} alt="lockEye"/>
+                    </div>
+                </div>
             </div>
             <div className="right-side">
                 <h1>Registration</h1>

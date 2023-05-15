@@ -7,6 +7,9 @@ import {calculateDwellTimesAndFlightTimes} from "../../service/calculateDwellAnd
 import {TextInput} from "../../component/TextInput";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
+import lockEye from "../../assets/lock-eye.png";
+import typePassword from "../../assets/type-password.png";
+import fingerprint from "../../assets/fingerprint.png";
 
 const LoginPage: React.FC = () => {
     const [keyData, setKeyData] = useState<KeyEventData[]>([]);
@@ -85,12 +88,26 @@ const LoginPage: React.FC = () => {
     return (
         <div className="LoginPage">
             <div className="left-side">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat.</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <div className="content">
+                    <div className="block">
+                        <p>Keystroke dynamics authentication is a unique security feature that adds an extra layer of protection to your account.</p>
+                        <img src={lockEye} alt="description-of-image"/>
+                    </div>
+                    <div className="block">
+                        <p>
+                            By typing the given phrase 5 times, our system can accurately capture your keystroke signature.
+                            This signature will then be used as a second authentication factor, ensuring only you can access your account.
+                        </p>
+                        <img src={typePassword} alt="description-of-image"/>
+                    </div>
+                    <div className="block">
+                        <p>
+                            This process not only enhances the security of your account but also helps prevent unauthorized access.
+                            Remember, your typing style is as unique as your fingerprint!
+                        </p>
+                        <img src={fingerprint} alt="description-of-image"/>
+                    </div>
+                </div>
             </div>
             <div className="right-side">
                 {step === 0 && (
