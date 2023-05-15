@@ -34,6 +34,8 @@ const LoginPage: React.FC = () => {
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputType(event.target.value);
+        setKeyData([]);
+        setInputValue('');
     };
 
     const handleSubmit = async (event: React.FormEvent) => {

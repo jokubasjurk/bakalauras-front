@@ -79,6 +79,9 @@ const Registration: React.FC<RegistrationProps> = () => {
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputType(event.target.value);
+        setKeyData([]);
+        setInputValue('');
+        setCounter(0);
     };
 
     const isSubmitEnabled = counter >= 10;
